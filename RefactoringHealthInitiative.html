@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Hack Reactor Health Initiative</title>
+  <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type='text/javascript'src='https://cdn.firebase.com/js/simple-login/1.5.0/firebase-simple-login.js'></script>
+  <script type="text/javascript" src="githublogin.js"></script>
+  <script type="text/javascript" src="chart.js"></script>
+  <link rel="stylesheet" type="text/css" href="leaderboardstyle.css">
+  <script type="text/javascript" src="hrhealth.js"></script>
+  <script src="http://d3js.org/d3.v2.min.js"></script>
+
+<body>
+  <h1 id="loginName"></h1>
+<table id="leaderboardTable" style="display:block"></table>
+<div id="normIcons">
+<button id="profile" onclick="profilePg();"> Profile</button>
+<button id="home" onclick="homePg();"> Home</button>
+</div>
+<div id="adminIcons">
+<button id="admin" style="display:none">Admin</button>
+</div>
+<div id="form" style="display:none"> 
+ Biking/Walking to HR:  <input type="text" id="transport" value= "" pv:"10"><br>
+ Daily Workout: <input type="text" id="dailyWO" value= "" pv:"15"><br>
+ Meditation:    <input type="text" id="meditation" value="" pv:"15"><br>
+ Solo Workout:  <input type="text" id="solowo" value="" pv:"15"><br>
+ Stairs:  <input type="text" id="stairs" value="" pv: "2"><br>
+ Water: <input type="text" id="water" value="" pv:"2"><br>
+ <input type="submit" value="Submit" onclick="pointsSubmitted();">
+</div>
+<div id="displayMsg">
+</div>
+<input type="text" id="dailyMsg" value=" " onkeypress="updateMsg();" >
+<div id="classButtons" style="display:none" >
+<button id='addHR12' data-key="hr12">Hr12</button>
+<button id='addHR13' data-key="hr13">Hr13</button>
+<button id='addHR14' data-key="hr14">Hr14</button>
+</div>
+<div id="chart"></div>
+</body>
+</html>
