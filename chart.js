@@ -1,3 +1,6 @@
+function renderChart(data) {
+
+
 var valueLabelWidth = 40; // space reserved for value labels (right)
 var barHeight = 20; // height of one bar
 var barLabelWidth = 100; // space reserved for bar labels
@@ -7,18 +10,23 @@ var gridChartOffset = 3; // space between start of grid and first bar
 var maxBarWidth = 420; // width of the bar with the max value
  
 // accessor functions 
-var barLabel = function(d) { return d['Name']; };
-var barValue = function(d) { return parseFloat(d['Score']); };
+var barLabel = function(d) { return d['name']; };
+var barValue = function(d) { return parseFloat(d['score']); };
  
+// sorting
+var sortedData = data.sort(function(a, b) {
+ return d3.descending(barValue(a), barValue(b));
+}); 
+
 // scales
-var yScale = d3.scale.ordinal().domain(d3.range(0, data.length)).rangeBands([0, data.length * barHeight]);
+var yScale = d3.scale.ordinal().domain(d3.range(0, sortedData.length)).rangeBands([0, sortedData.length * barHeight]);
 var y = function(d, i) { return yScale(i); };
 var yText = function(d, i) { return y(d, i) + yScale.rangeBand() / 2; };
-var x = d3.scale.linear().domain([0, d3.max(data, barValue)]).range([0, maxBarWidth]);
+var x = d3.scale.linear().domain([0, d3.max(sortedData, barValue)]).range([0, maxBarWidth]);
 // svg container element
 var chart = d3.select('#chart').append("svg")
   .attr('width', maxBarWidth + barLabelWidth + valueLabelWidth)
-  .attr('height', gridLabelHeight + gridChartOffset + data.length * barHeight);
+  .attr('height', gridLabelHeight + gridChartOffset + sortedData.length * barHeight);
 // grid line labels
 var gridContainer = chart.append('g')
   .attr('transform', 'translate(' + barLabelWidth + ',' + gridLabelHeight + ')'); 
@@ -37,7 +45,7 @@ gridContainer.selectAll("line").data(x.ticks(10)).enter().append("line")
 // bar labels
 var labelsContainer = chart.append('g')
   .attr('transform', 'translate(' + (barLabelWidth - barLabelPadding) + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
-labelsContainer.selectAll('text').data(data).enter().append('text')
+labelsContainer.selectAll('text').data(sortedData).enter().append('text')
   .attr('y', yText)
   .attr('stroke', 'none')
   .attr('fill', 'black')
@@ -47,14 +55,14 @@ labelsContainer.selectAll('text').data(data).enter().append('text')
 // bars
 var barsContainer = chart.append('g')
   .attr('transform', 'translate(' + barLabelWidth + ',' + (gridLabelHeight + gridChartOffset) + ')'); 
-barsContainer.selectAll("rect").data(data).enter().append("rect")
+barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
   .attr('y', y)
   .attr('height', yScale.rangeBand())
   .attr('width', function(d) { return x(barValue(d)); })
   .attr('stroke', 'white')
   .attr('fill', 'steelblue');
 // bar value labels
-barsContainer.selectAll("text").data(data).enter().append("text")
+barsContainer.selectAll("text").data(sortedData).enter().append("text")
   .attr("x", function(d) { return x(barValue(d)); })
   .attr("y", yText)
   .attr("dx", 3) // padding-left
@@ -68,3 +76,5 @@ barsContainer.append("line")
   .attr("y1", -gridChartOffset)
   .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
   .style("stroke", "#000");
+
+}

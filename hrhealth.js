@@ -1,13 +1,4 @@
-<html>
-<head>
-  <title>Hack Reactor Health Initiative</title>
-  <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type='text/javascript'src='https://cdn.firebase.com/js/simple-login/1.5.0/firebase-simple-login.js'></script>
-  <script type="text/javascript" src="githublogin.js"></script>
-  <link rel="stylesheet" type="text/css" href="leaderboardstyle.css">
-  <script type="text/javascript">
-  function calculatePoints(activityValue,entryValue){
+function calculatePoints(activityValue,entryValue){
   var totalpoints=activityValue*entryValue;
   return totalpoints;
 }
@@ -72,6 +63,7 @@ var LEADERBOARD_SIZE = 1000;//Need to change to amt of students
 
   // Build some firebase references.
   var rootRef = new Firebase('https://hrhitest.firebaseio.com/');
+  var userRef = rootRef.child("user");
   var msgRef = new Firebase('https://hrhitest.firebaseio.com/messages');
   var scoreListRef1 = rootRef.child("hr1");
   var textRef=rootRef.child("msg");
@@ -81,6 +73,15 @@ var LEADERBOARD_SIZE = 1000;//Need to change to amt of students
   // Keep a mapping of firebase locations to HTML elements, so we can move / remove elements as necessary.
  
   // Helper function that takes a new score snapshot and adds an appropriate row to our leaderboard table.
+  var loggedIn= function(name){
+    var data=[{name:name, score:13},{name:"gisela", score:15}];
+    userRef.child(name).once('value', function(snapshot){
+      console.log({name: name, snapshot: snapshot.val()});
+    });
+    renderChart(data);
+
+  };
+
   function handleScoreAdded(scoreSnapshot, prevScoreName) {
     var newScoreRow = $("<tr/>");
     // variable = row 
@@ -172,33 +173,3 @@ var updateMsg= function(){
   msgRef.set({msg:$("#dailyMsg").val()});
 }
 $(setup);
-</script>
-
-<body>
-<table id="leaderboardTable" style="display:block"></table>
-<div id="normIcons">
-<button id="profile" onclick="profilePg();"> Profile</button>
-<button id="home" onclick="homePg();"> Home</button>
-</div>
-<div id="adminIcons">
-<button id="admin" style="display:none">Admin</button>
-</div>
-<div id="form" style="display:none"> 
- Biking/Walking to HR:  <input type="text" id="transport" value= "" pv:"10"><br>
- Daily Workout: <input type="text" id="dailyWO" value= "" pv:"15"><br>
- Meditation:    <input type="text" id="meditation" value="" pv:"15"><br>
- Solo Workout:  <input type="text" id="solowo" value="" pv:"15"><br>
- Stairs:  <input type="text" id="stairs" value="" pv: "2"><br>
- Water: <input type="text" id="water" value="" pv:"2"><br>
- <input type="submit" value="Submit" onclick="pointsSubmitted();">
-</div>
-<div id="displayMsg">
-</div>
-<input type="text" id="dailyMsg" value=" " onkeypress="updateMsg();" >
-<div id="classButtons" style="display:none" >
-<button id='addHR12'>Hr12</button>
-<button id='addHR13'>Hr13</button>
-<button id='addHR14'>Hr14</button>
-</div>
-</body>
-</html>

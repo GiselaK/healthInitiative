@@ -13,7 +13,9 @@
   top:1%;
 }
 #adminIcons{
-  position: center;
+  position: fixed;
+  right: 98%;
+  top: 98%;
 }
 
 body {
