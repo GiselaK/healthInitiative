@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+    <link rel='stylesheet' type='text/css' href='../css/example.css'>
+  </head>
+  <body>
+    <div id='messagesDiv'></div>
+    <input type='text' id='nameInput' placeholder='Name'>
+    <input type='text' id='messageInput' placeholder='Message'>
+    <script>
+      var myDataRef = new Firebase('https://ctq127e1k1b.firebaseio-demo.com/');
+      $('#messageInput').keypress(function (e) {
+        if (e.keyCode == 13) {
+        	var name = $('#nameInput').val();
+          var text = $('#messageInput').val();
+        var listRef = new Firebase('https://SampleChat.firebaseIO-demo.com/message_list');
+var msgRef = listRef.push();
+msgRef.set({user_id: name, text: text});
+  myDataRef.push({name: name, text: text});
+          $('#messageInput').val('');
+        }
+      });
+      myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.name, message.text);
+      });
+     var helped=true;
+      if (helped== true){
+        name.remove();
+
+      }
+
+      function displayChatMessage(name, text) {
+        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      };
+    </script>
+  </body>
+</html>

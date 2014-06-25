@@ -1,0 +1,138 @@
+<html>
+<head>
+	<title>Hack Reactor Health Initiative</title>
+	 <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+	 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="leaderboardstyle.css">
+    <script type='text/javascript'src='https://cdn.firebase.com/js/simple-login/1.5.0/firebase-simple-login.js'></script>
+    <script type="text/javascript" src="githublogin.js"></script>
+    <script type="text/javascript"> 
+function calculatePoints(activityValue,entryValue){
+  var totalpoints=activityValue*entryValue;
+  return totalpoints;
+}
+    var pointsSubmitted= function(){
+	var transportAV	=10;
+  var dailyWOAV	=15;
+  var meditationAV=15;
+  var soloWOAV	=15;
+  var stairsAV	=2;
+  var waterAV		=2;    
+	var transportTotal=calculatePoints(transportAV,transport.value);
+	var dailyWOTotal=calculatePoints(dailyWOAV,dailyWO.value);
+	var meditationTotal=calculatePoints(meditationAV,meditation.value);
+	var soloWOPVTotal=calculatePoints(soloWOAV,solowo.value);
+	var stairsTotal=calculatePoints(stairsAV,stairs.value);
+	var waterTotal=calculatePoints(waterAV,water.value);
+	var pointInputTotal=transportTotal+dailyWOTotal+meditationTotal+soloWOPVTotal+stairsTotal+waterTotal;
+   var htmlForPath = {};
+    if (name.length === 0)
+        return;
+      
+
+      var userScoreRef = scoreListRef.child(name);
+      if(htmlForPath[name] !== undefined)console.log("if i no wrky")
+      {
+        console.log("i'm old","pointWeeklyTotal:",pointWeeklyTotal,"pointInputTotal;",pointInputTotal )
+      pointWeeklyTotal=pointInputTotal+pointWeeklyTotal;
+      }
+      else{
+      var pointWeeklyTotal=pointInputTotal;
+      console.log("im new","pointWeeklyTotal:",pointWeeklyTotal,"pointInputTotal;",pointInputTotal);
+      }
+
+      // Use setWithPriority to put the name / score in Firebase, and set the priority to be the score.
+      
+      userScoreRef.setWithPriority({ name:name, score:pointWeeklyTotal}, pointWeeklyTotal);
+
+      // Track the highest score using a transaction.  A transaction guarantees that the code inside the block is
+      // executed on the latest data from the server, so transactions should be used if you have multiple
+      // clients writing to the same data and you want to avoid conflicting changes.
+      // highestScoreRef.transaction(function (currentHighestScore) {
+      //   if (currentHighestScore === null || newScore > currentHighestScore) {
+      //     // The return value of this function gets saved to the server as the new highest score.
+      //     // return newScore;
+      //   }
+      //   // if we return with no arguments, it cancels the transaction.
+      //   // return;
+      // });
+
+}
+var LEADERBOARD_SIZE = 1000;//Need to change to amt of students
+
+
+  // Build some firebase references.
+  var rootRef = new Firebase('https://hrhitest.firebaseio.com/ ');
+  var scoreListRef = rootRef.child("scoreList");
+  var highestScoreRef = rootRef.child("highestScore");
+
+  // Keep a mapping of firebase locations to HTML elements, so we can move / remove elements as necessary.
+ 
+  // Helper function that takes a new score snapshot and adds an appropriate row to our leaderboard table.
+  function handleScoreAdded(scoreSnapshot, prevScoreName) {
+    var newScoreRow = $("<tr/>");
+    // variable = row 
+    newScoreRow.append($("<td/>").append($("<em/>").text(scoreSnapshot.val().name)));
+    // append row/newScoreRow with tableCell/td. Append tableCell/td with bold/em for text of scoreSnapshots value of the name
+    newScoreRow.append($("<td/>").text(scoreSnapshot.val().score));
+    // append row/newscorerow with tablecell/td for text of scoreSnapshots value of the score
+    // Store a reference to the table row so we can get it again later.
+    htmlForPath[scoreSnapshot.name()] = newScoreRow;
+
+    // Insert the new score in the appropriate place in the table.
+    if (prevScoreName === null) {
+      $("#leaderboardTable").append(newScoreRow);
+    }
+    else {
+      var lowerScoreRow = htmlForPath[prevScoreName];
+      lowerScoreRow.before(newScoreRow);
+    }
+  }
+
+  // Helper function to handle a score object being removed; just removes the corresponding table row.
+  function handleScoreRemoved(scoreSnapshot) {
+    var removedScoreRow = htmlForPath[scoreSnapshot.name()];
+    removedScoreRow.remove();
+    delete htmlForPath[scoreSnapshot.name()];
+  }
+
+  // Create a view to only receive callbacks for the last LEADERBOARD_SIZE scores
+  var scoreListView = scoreListRef.limit(LEADERBOARD_SIZE);
+
+  // Add a callback to handle when a new score is added.
+  scoreListView.on('child_added', function (newScoreSnapshot, prevScoreName) {
+    handleScoreAdded(newScoreSnapshot, prevScoreName);
+  });
+
+  // Add a callback to handle when a score is removed
+  scoreListView.on('child_removed', function (oldScoreSnapshot) {
+    handleScoreRemoved(oldScoreSnapshot);
+  });
+
+  // Add a callback to handle when a score changes or moves positions.
+  var changedCallback = function (scoreSnapshot, prevScoreName) {
+    handleScoreRemoved(scoreSnapshot);
+    handleScoreAdded(scoreSnapshot, prevScoreName);
+  };
+  scoreListView.on('child_moved', changedCallback);
+  scoreListView.on('child_changed', changedCallback);
+
+  // When the user presses enter on scoreInput, add the score, and update the highest score.
+
+</script>
+</head>
+
+<body>
+<table id="leaderboardTable"></table>
+
+<div id="form"> 
+ Biking/Walking to HR:	<input type="text" id="transport" value= "" pv:"10"><br>
+ Daily Workout:	<input type="text" id="dailyWO" value= "" pv:"15"><br>
+ Meditation:		<input type="text" id="meditation" value=""	pv:"15"><br>
+ Solo Workout:	<input type="text" id="solowo" value="" pv:"15"><br>
+ Stairs:	<input type="text" id="stairs" value="" pv: "2"><br>
+ Water:	<input type="text" id="water" value="" pv:"2"><br>
+<input type="submit" value="Submit" onclick="pointsSubmitted();">
+</div>
+</body>
+</html>

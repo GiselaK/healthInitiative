@@ -1,0 +1,151 @@
+/* Global */
+
+#form{
+  position: fixed;
+  text-align: right;
+  left: 40px;
+  border: 5px solid #424547;
+  padding: 5px;
+}
+#normIcons{
+  position: fixed;
+  right: 1%;
+  top:1%;
+}
+#adminIcons{
+  position: center;
+}
+
+body {
+  margin-top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  background-color: #f8f8f8;
+  font-size: 150%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #424547;
+  text-align: center;
+  background: no-repeat;
+  background-size: 100%;
+  /*background-image: url(sfBeach.gif);*/
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #424547;
+}
+h2{
+  font-size: 220px;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #424547;
+
+}
+
+h3 {
+  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #424547;
+}
+
+p {
+ font-size: 16px;
+}
+
+input {
+  font-size: 24px;
+}
+
+input[type=text] {
+  left: 10%;
+  color: #424547;
+  border: 2px solid #c2c2c2;
+  background-color: white;
+  width: 40px;
+}
+
+em {
+  font-style: normal;
+  font-weight: bold;
+  color: black;
+}
+
+/* Chat */
+#messagesDiv {
+  background-color: white;
+  overflow: auto;
+  height: 230px;
+  width: 100%;
+  padding: 10px;
+  border: 8px solid #424547;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+#nameInput {
+  width: 26%;
+}
+
+#messageInput {
+  width: 68%;
+}
+
+/* Drawing */
+
+#colorholder {
+  width: 480px;
+  height: 30px;
+  border: 2px solid #424547;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#drawing-canvas {
+  border: 3px solid #999
+}
+
+.colorbox {
+  width: 22px;
+  height: 22px;
+  margin: 1px;
+  display: inline-block;
+  border: 3px solid black;
+}
+
+/* Leaderboard */
+
+#leaderboardTable {
+  background-color: white;
+  overflow: auto;
+  width: 100%;
+  padding: 10px;
+  border: 8px solid #424547;
+  margin-bottom: 5px;
+}
+#chart
+{
+  overflow: auto;
+  padding: 10px;
+  border: 8px solid #424547;
+  margin-bottom: 5px;
+}
+
+#scoreInput {
+  width: 68%;
+}
+
+#highestscore {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Presence */
+
+#presenceDiv {
+  text-align: center;
+}
+
