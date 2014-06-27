@@ -1,5 +1,4 @@
 <html>
-<head>
   <title>Hack Reactor Health Initiative</title>
   <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -11,32 +10,50 @@
   <script src="http://d3js.org/d3.v2.min.js"></script>
 
 <body>
-  <h1 id="loginName"></h1>
-<table id="leaderboardTable" style="display:block"></table>
-<div id="normIcons">
-<button id="profile" onclick="profilePg();"> Profile</button>
-<button id="home" onclick="homePg();"> Home</button>
-</div>
-<div id="adminIcons">
-<button id="admin" style="display:none">Admin</button>
-</div>
-<div id="form" style="display:none"> 
- Biking/Walking to HR:  <input type="text" id="transport" value= "" pv:"10"><br>
- Daily Workout: <input type="text" id="dailyWO" value= "" pv:"15"><br>
- Meditation:    <input type="text" id="meditation" value="" pv:"15"><br>
- Solo Workout:  <input type="text" id="solowo" value="" pv:"15"><br>
- Stairs:  <input type="text" id="stairs" value="" pv: "2"><br>
- Water: <input type="text" id="water" value="" pv:"2"><br>
- <input type="submit" value="Submit" onclick="pointsSubmitted();">
-</div>
-<div id="displayMsg">
-</div>
-<input type="text" id="dailyMsg" value=" " onkeypress="updateMsg();" >
-<div id="classButtons" style="display:none" >
-<button id='addHR12' data-key="hr12">Hr12</button>
-<button id='addHR13' data-key="hr13">Hr13</button>
-<button id='addHR14' data-key="hr14">Hr14</button>
-</div>
-<div id="chart"></div>
+  
+<h1>Hack Reactor Health Initiative</h1>
+  <img id="userPic"” style="border: 5px double #009999">
+  <h2 id="loginName"></h2>
+  <div id="displayMsg"></div>
+
+  <table id="chart" style="display:block"></table>
+  
+  <div id="normIcons">
+    <button id="profile" onclick="profilePg();"> Profile</button>
+    <button id="home" onclick="homePg();"> Home</button>
+  </div>
+  
+  <div id="adminIcons">
+    <button id="admin" style="display:none" onclick="adminPg();">Admin</button>
+  </div>
+
+  <div id="adminElements" style="display:none">
+    <textarea rows="4" cols="50" id="dailyMsg" value=" " placeholder="Wassup ADMIN?! I'm Gisela, I made this (:"></textarea>
+    <input type="submit" value="Submit" onclick="updateMsg();">
+  </div>
+
+  <div id="classButtons" style="display:none" ></div>
+
+  <div id="form" style="display:none"> 
+   Biking/Walking to HR:  <input type="text" id="transport" value= "" pv:"10" placeholder="10"><br>
+   Daily Workout: <input type="text" id="dailyWO" value= "" pv:"15" placeholder="15"><br>
+   Meditation:    <input type="text" id="meditation" value="" pv:"15" placeholder="15"><br>
+   Solo Workout:  <input type="text" id="solowo" value="" pv:"15" placeholder="15"><br>
+   Push Ups/Squats <input type="text" id="pushup" value="" pv:"1" placeholder="1"><br>
+   Stairs (1 flight):  <input type="text" id="stairs" value="" pv: "2" placeholder="2"><br>
+   Water (2 oz): <input type="text" id="water" value="" pv:"2" placeholder="2"><br>
+   <input type="submit" value="Submit" onclick="pointsSubmitted();">
+  </div>
+  <form id="feedback" style="display:none" action="MAILTO:giselakottmeier@gmail.com" method="post" enctype="text/plain">
+    <center>Feedback</center>
+    Name:<br><input type="text" name="name" placeholder="your name" style="width: 300px;"><br>
+    E-mail:<br><input type="text" name="mail" placeholder="your email"  style="width: 300px;"><br>
+    Comment:<br><textarea type="text" name="comment" id="sendFeedback" value=" " placeholder="Write in any questions or feedback regarding the Hack Reactor Health Initiative." style="width: 300px;" rows="4" cols="50" ></textarea>
+    <input type="submit" value="Send">
+    <input type="reset" value="Reset">
+  </form>
+
+  </div>
+
 </body>
 </html>

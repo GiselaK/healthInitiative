@@ -1,5 +1,8 @@
 /* Global */
 
+#displayMsg{
+  text-align: center;
+}
 #form{
   position: fixed;
   text-align: right;
@@ -7,50 +10,68 @@
   border: 5px solid #424547;
   padding: 5px;
 }
+#feedback{
+  position: fixed;
+  left:50%;
+  padding: 10px;
+  border: 3px solid #424547;
+  
+}
 #normIcons{
   position: fixed;
-  right: 1%;
-  top:1%;
+  left: 2px;
+  top:1px;
 }
 #adminIcons{
   position: fixed;
-  right: 98%;
-  top: 98%;
+  left:119px;
+  top:10px;
+}
+#userPic{
+  position: fixed;
+  top:1%;
+  right:1%;
+  width: 60px;
+  height: 60px;
+  border-radius: 15px 15px 15px 15px;
 }
 
 body {
+  background-color: gray;
   margin-top: 1%;
   margin-left: auto;
   margin-right: auto;
   width: 70%;
-  background-color: #f8f8f8;
   font-size: 150%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #424547;
-  text-align: center;
-  background: no-repeat;
+  /*text-align: center;*/
   background-size: 100%;
   /*background-image: url(sfBeach.gif);*/
 }
-
 h1 {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #424547;
+  font-family:"Times New Roman",Georgia,Serif;
+  font-size: 30px;
+  text-align: center;
 }
-h2{
+h2 {
+  position: fixed;
+  font-size: 23px;
+  text-align: right;
+  font-weight: bold;
+  top: 20px;
+  right:9%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h3{
   font-size: 220px;
   font-weight: bold;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #424547;
 
 }
 
 h3 {
   font-size: 16px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #424547;
 }
 
 p {
@@ -72,7 +93,7 @@ input[type=text] {
 em {
   font-style: normal;
   font-weight: bold;
-  color: black;
+  color: white;
 }
 
 /* Chat */
@@ -120,20 +141,16 @@ em {
 
 /* Leaderboard */
 
-#leaderboardTable {
-  background-color: white;
-  overflow: auto;
-  width: 100%;
-  padding: 10px;
-  border: 8px solid #424547;
-  margin-bottom: 5px;
-}
 #chart
 {
+  position: relative;
+  width: 1000px;
+  height: 300px;
   overflow: auto;
-  padding: 10px;
-  border: 8px solid #424547;
+  /*padding: 10px;*/
+  border: 8px solid black;
   margin-bottom: 5px;
+  right: 20%;
 }
 
 #scoreInput {
